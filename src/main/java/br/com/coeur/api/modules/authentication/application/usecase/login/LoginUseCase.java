@@ -5,10 +5,13 @@ import br.com.coeur.api.shared.ApiException;
 import br.com.coeur.api.modules.users.application.UserResponse;
 import br.com.coeur.api.modules.users.application.UsersRepository;
 import br.com.coeur.api.modules.users.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class LoginUseCase {
 
     private static final String ERR_INVALID_CREDENTIALS = "Email ou senha inválidos.";
@@ -18,11 +21,7 @@ public class LoginUseCase {
     private final UsersRepository repository;
     private final TokenService tokenService;
 
-    public LoginUseCase(UsersRepository repository, TokenService tokenService) {
-        this.repository = repository;
-        this.tokenService = tokenService;
-    }
-
+    @Transactional
     public AuthResponse execute(LoginRequest request) {
         User user = repository.findByEmail(request.email().toLowerCase()).orElse(null);
 

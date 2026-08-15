@@ -5,11 +5,14 @@ import br.com.coeur.api.shared.ApiException;
 import br.com.coeur.api.modules.users.application.UserResponse;
 import br.com.coeur.api.modules.users.application.UsersRepository;
 import br.com.coeur.api.modules.users.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UpdateUserUseCase {
 
     private static final String ERR_NOT_FOUND = "Usuário não encontrado.";
@@ -17,11 +20,7 @@ public class UpdateUserUseCase {
     private final UsersRepository repository;
     private final CurrentUser currentUser;
 
-    public UpdateUserUseCase(UsersRepository repository, CurrentUser currentUser) {
-        this.repository = repository;
-        this.currentUser = currentUser;
-    }
-
+    @Transactional
     public UserResponse execute(UUID id, UpdateUserRequest request) {
         if (!id.equals(currentUser.getId()) && !currentUser.isAdmin()) {
             throw ApiException.forbidden();
