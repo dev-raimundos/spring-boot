@@ -1,7 +1,7 @@
 package br.com.coeur.api.config;
 
-import br.com.coeur.api.modules.authentication.infrastructure.JwtAuthenticationFilter;
-import br.com.coeur.api.modules.authentication.infrastructure.LoginRateLimitFilter;
+import br.com.coeur.api.modules.authentication.filter.JwtAuthenticationFilter;
+import br.com.coeur.api.modules.authentication.filter.LoginRateLimitFilter;
 import br.com.coeur.api.shared.ProblemDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
